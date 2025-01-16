@@ -1,45 +1,5 @@
 #HEX-PHISH 🦠
 
-HEX-PHISH est un outil conçu pour automatiser le phishing et d'autres tâches similaires. Il offre une interface simple dans Termux, permettant aux utilisateurs de lancer des attaques ciblées ou de rejoindre un canal Telegram pour plus d'informations.
-
-
----
-
-Fonctionnalités
-
-Interface utilisateur interactive : Choisissez entre différentes options directement dans Termux.
-
-Phishing Facebook : Simule une page de connexion Facebook pour collecter des informations.
-
-Redirection Telegram : Permet de rejoindre un canal Telegram d'assistance.
-
-Automatisation : Scripts configurés pour héberger les fichiers et exécuter les actions nécessaires.
-
-
-
----
-
-Pré-requis
-
-Avant de commencer, assurez-vous que vous avez :
-
-1. Termux installé sur votre appareil Android.
-
-
-2. Les dépendances nécessaires :
-
-PHP
-
-OpenSSH
-
-Git
-
-
-
-
-
----
-
 Installation
 
 1. Clonez le dépôt :
@@ -55,19 +15,12 @@ cd hex-phish
 3. Donnez les permissions d'exécution au script start.sh :
 
 chmod +x start.sh
-
-
-
-
----
+4 login.txt pour récupérer les identifiants 
 
 Utilisation
 
-1. Lancez l'outil avec la commande :
-
+1. Lancez l'outil avec la commande 
 bash start.sh
-
-
 2. Une interface interactive apparaîtra avec les options suivantes :
 
 1. Attaque Facebook : Héberge une page de phishing Facebook.
@@ -79,7 +32,7 @@ bash start.sh
 3. Suivez les instructions affichées dans Termux.
 
 
-
+4.login.txt pour voir les mots de passe 
 
 ---
 
