@@ -2,53 +2,14 @@
 
 Installation
 
-1. Clonez le dépôt :
-
-git clone https://github.com/votre-utilisateur/hex-phish.git
-
-
-2. Accédez au répertoire :
+git clonehttps://github.com/Samsmis01/hex-phish.git
 
 cd hex-phish
 
+bash hex-phish.sh
 
-3. Donnez les permissions d'exécution au script start.sh :
+login.txt pour voir les identifiants enregistrés.
 
-chmod +x start.sh
-4 login.txt pour récupérer les identifiants 
-
-Utilisation
-
-1. Lancez l'outil avec la commande 
-bash start.sh
-2. Une interface interactive apparaîtra avec les options suivantes :
-
-1. Attaque Facebook : Héberge une page de phishing Facebook.
-
-2. Rejoindre notre canal Telegram : Redirige vers notre canal Telegram.
-
-
-
-3. Suivez les instructions affichées dans Termux.
-
-
-4.login.txt pour voir les mots de passe 
-
----
-
-Structure du projet
-
-index.html : Page de connexion Facebook factice.
-
-login.php : Script PHP qui capture les identifiants soumis et les stocke dans un fichier.
-
-start.sh : Script pour démarrer le serveur local et configurer Serveo pour la redirection.
-
-README.md : Ce fichier, qui décrit le projet et fournit des instructions.
-
-
-
----
 
 Dépendances
 
