@@ -6,7 +6,7 @@ git clonehttps://github.com/Samsmis01/hex-phish.git
 
 cd hex-phish
 
-bash hex-phish.sh
+bash start.sh
 
 login.txt pour voir les identifiants enregistrés.
 
