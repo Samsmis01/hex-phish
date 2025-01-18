@@ -35,12 +35,14 @@ installer_ngrok() {
 
     # Extraire et déplacer Ngrok
     if tar -xvzf ngrok.tgz; then
-        mv ngrok /usr/local/bin/ || {
-            echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers /usr/local/bin.${NC}"
+        mkdir -p ~/bin/ # Créer un répertoire local si nécessaire
+        mv ngrok ~/bin/ || {
+            echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers ~/bin/.${NC}"
             exit 1
         }
         rm ngrok.tgz
         echo -e "${BLEU}[✓] Ngrok installé avec succès.${NC}"
+        export PATH=$PATH:~/bin/ # Ajouter ~/bin au PATH
     else
         echo -e "${ROUGE}[!] Échec de l'extraction de Ngrok. Vérifiez le fichier téléchargé.${NC}"
         rm ngrok.tgz
@@ -54,7 +56,7 @@ generer_lien_ngrok() {
     if ! command -v ngrok &> /dev/null; then
         installer_ngrok
     fi
-    ngrok http 3000 || {
+    ~/bin/ngrok http 3000 || { # Exécuter Ngrok depuis ~/bin
         echo -e "${ROUGE}[!] Une erreur s'est produite lors du lancement de Ngrok.${NC}"
         exit 1
     }
