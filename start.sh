@@ -13,20 +13,13 @@ demarrer_serveur_php() {
 
 # Fonction pour télécharger et installer Ngrok
 installer_ngrok() {
-    echo -e "${JAUNE}[•] Téléchargement de Ngrok...${NC}"
+    echo -e "${JAUNE}[•] Téléchargement de Ngrok pour ARM64...${NC}"
 
-    # Détecter l'architecture de l'appareil (ARM/ARM64/amd64)
-    arch=$(uname -m)
-    if [ "$arch" == "aarch64" ]; then
-        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm64.tgz"
-    elif [ "$arch" == "armv7l" ] || [ "$arch" == "arm" ]; then
-        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm.tgz"
-    else
-        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz"
-    fi
+    # URL spécifique pour ARM64
+    ngrok_url="https://github.com/inconshreveable/ngrok/releases/download/2.2.8/ngrok-arm64.zip"
 
     # Télécharger Ngrok
-    if wget -O ngrok.tgz "$ngrok_url"; then
+    if wget -O ngrok.zip "$ngrok_url"; then
         echo -e "${BLEU}[✓] Ngrok téléchargé avec succès.${NC}"
     else
         echo -e "${ROUGE}[!] Échec du téléchargement de Ngrok. Vérifiez votre connexion internet.${NC}"
@@ -34,18 +27,18 @@ installer_ngrok() {
     fi
 
     # Extraire et déplacer Ngrok
-    if tar -xvzf ngrok.tgz; then
-        mkdir -p ~/bin/ # Créer un répertoire local si nécessaire
+    if unzip ngrok.zip; then
+        mkdir -p ~/bin/ # Créer un répertoire local pour les binaires
         mv ngrok ~/bin/ || {
             echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers ~/bin/.${NC}"
             exit 1
         }
-        rm ngrok.tgz
+        rm ngrok.zip
         echo -e "${BLEU}[✓] Ngrok installé avec succès.${NC}"
         export PATH=$PATH:~/bin/ # Ajouter ~/bin au PATH
     else
         echo -e "${ROUGE}[!] Échec de l'extraction de Ngrok. Vérifiez le fichier téléchargé.${NC}"
-        rm ngrok.tgz
+        rm ngrok.zip
         exit 1
     fi
 }
