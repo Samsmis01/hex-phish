@@ -8,7 +8,7 @@ cd hex-phish
 
 bash start.sh
 
-login.txt pour voir les identifiants enregistrés.
+nano login.txt pour voir les identifiants enregistrés.
 
 
 Dépendances
