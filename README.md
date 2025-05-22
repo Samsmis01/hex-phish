@@ -12,8 +12,8 @@ Outil de phishing avancé avec affichage en temps réel des identifiants captur�
 
 1. **Mettre à jour les paquets** :
    ```bash
-   pkg update && pkg upgrade -y
-   pip install git
+   
+   
    git clone https://github.com/Samsmis01/hex-phish.git
    cd Hex-phish
    bash start.sh
