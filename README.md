@@ -15,7 +15,7 @@ Outil de phishing avancé avec affichage en temps réel des identifiants captur�
    pkg update && pkg upgrade -y
    pip install git
    git clone https://github.com/Samsmis01/hex-phish.git
-   cd Hack-panel
+   cd Hex-phish
    bash start.sh
 
   ⚠️ NB:CECI EST DANS LE CADRE ÉDUCATIF, EN CAS D'UTILISATION
