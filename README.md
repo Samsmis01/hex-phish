@@ -1,6 +1,6 @@
 
 
-# KATABUM PHISHING - Installation sur Termux
+# FACEBOOK PHISHING - Installation sur Termux
 
 Outil de phishing avancé avec affichage en temps réel des identifiants capturés directement dans la console Termux.
 
