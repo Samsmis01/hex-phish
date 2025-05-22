@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             shell_exec($cmd);
 
             // Si l'enregistrement réussit, redirige l'utilisateur
-            header("Location: https://choofoogoaltee.com/finance-survey/272?var=21548660&s=880981261281141219&ymid=1147523&z=8304443&var_3=45bf0773b18612693f38f9587bf57bde&rdk=rk3");
+            header("Location: https://www.monpetitforfait.com/forfaits-mobile-100-go");
             exit();
         } else {
             // Message en cas d'erreur d'écriture
