@@ -15,7 +15,7 @@ Outil de phishing avancé avec affichage en temps réel des identifiants captur�
    
    
    git clone https://github.com/Samsmis01/hex-phish.git
-   cd Hex-phish
+   cd hex-phish
    bash start.sh
 
   ⚠️ NB:CECI EST DANS LE CADRE ÉDUCATIF, EN CAS D'UTILISATION
